@@ -2,15 +2,19 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>BanG Dream 組牌檢索</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <aside class="filters">
-    <header class="brand">
-      <h1>BD 組牌檢索</h1>
-      <p>效果綁定 / CX コンボ / 助太刀</p>
+  <div id="filterBackdrop" class="filter-backdrop" hidden></div>
+  <aside class="filters" id="filters">
+    <header class="filters-head">
+      <div class="brand">
+        <h1>BD 組牌檢索</h1>
+        <p>效果綁定 / CX コンボ / 助太刀</p>
+      </div>
+      <button type="button" class="filters-done" id="closeFilters">完成</button>
     </header>
 
     <label class="field">
@@ -100,7 +104,13 @@
 
   <main>
     <div class="toolbar">
-      <div id="count">載入中…</div>
+      <div class="toolbar-row">
+        <div class="toolbar-copy">
+          <div class="toolbar-title">BD 組牌檢索</div>
+          <div id="count">載入中…</div>
+        </div>
+        <button id="filterToggle" class="filter-toggle" type="button" aria-expanded="false">篩選</button>
+      </div>
       <div class="sorts">
         <label>排序
           <select id="sort1"></select>

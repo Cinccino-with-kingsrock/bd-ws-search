@@ -448,6 +448,7 @@ function apply() {
     ? "　（含不限標籤）"
     : "";
   document.getElementById("count").textContent = `${list.length} / ${cards.length} 張${unboundNote}`;
+  refreshFilterToggle();
   const host = document.getElementById("results");
   host.innerHTML = "";
   const frag = document.createDocumentFragment();
@@ -479,6 +480,27 @@ document.getElementById("drawer").addEventListener("click", (e) => {
   if (e.target.id === "drawer") e.target.classList.add("hidden");
 });
 
+function activeFilterCount() {
+  let n = 0;
+  for (const set of Object.values(selected)) n += set.size;
+  if (document.getElementById("q").value.trim()) n += 1;
+  if (document.getElementById("atkMin").value || document.getElementById("atkMax").value) n += 1;
+  return n;
+}
+
+function refreshFilterToggle() {
+  const btn = document.getElementById("filterToggle");
+  const n = activeFilterCount();
+  btn.textContent = n ? `篩選 ${n}` : "篩選";
+  btn.classList.toggle("has-on", n > 0);
+}
+
+function setFiltersOpen(open) {
+  document.body.classList.toggle("filters-open", open);
+  document.getElementById("filterBackdrop").hidden = !open;
+  document.getElementById("filterToggle").setAttribute("aria-expanded", open ? "true" : "false");
+}
+
 function boot(data) {
   cards = data;
   apply();
@@ -486,6 +508,14 @@ function boot(data) {
 
 fillSortSelects();
 renderChips();
+document.getElementById("filterToggle").addEventListener("click", () => {
+  setFiltersOpen(!document.body.classList.contains("filters-open"));
+});
+document.getElementById("closeFilters").addEventListener("click", () => setFiltersOpen(false));
+document.getElementById("filterBackdrop").addEventListener("click", () => setFiltersOpen(false));
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && document.body.classList.contains("filters-open")) setFiltersOpen(false);
+});
 if (Array.isArray(window.CARDS) && window.CARDS.length) {
   boot(window.CARDS);
 } else {
