@@ -44,7 +44,7 @@ TRIGGER_PRIMARY = [
     ("soul", "ソウル"),
 ]
 
-# BottleNeko printed values that are clearly wrong.
+# Printed values that are clearly wrong.
 POWER_OVERRIDES = {
     "BD/WE49-P10": 2000,  # Lv0/C0 listed as 6500; shops/print is 2000
 }

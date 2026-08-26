@@ -4,6 +4,11 @@ __pycache__/
 .DS_Store
 Thumbs.db
 BD-deck-helper.zip
+data/cards_raw.json
 data/cards_bottleneko.json
 web/cards.json
 web/tag_stats.json
+scraper.py
+clean_data.py
+scraper_bottleneko_final.py
+clean_bottleneko_data.py
