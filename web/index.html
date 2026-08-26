@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BanG Dream 組牌檢索</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <aside class="filters">
+    <header class="brand">
+      <h1>BD 組牌檢索</h1>
+      <p>效果綁定 / CX コンボ / 助太刀</p>
+    </header>
+
+    <label class="field">
+      <span>關鍵字（卡名 / 編號 / 效果）</span>
+      <input id="q" type="search" placeholder="例：集中、春日影、W125" />
+    </label>
+
+    <section>
+      <h2>種類</h2>
+      <div class="chips" data-filter="types"></div>
+    </section>
+    <section>
+      <h2>等級</h2>
+      <div class="chips" data-filter="levels"></div>
+    </section>
+    <section>
+      <h2>顏色</h2>
+      <div class="chips" data-filter="colors"></div>
+    </section>
+    <section>
+      <h2>牌面攻擊力</h2>
+      <div class="range">
+        <input id="atkMin" type="number" min="0" step="500" placeholder="最小" />
+        <span>～</span>
+        <input id="atkMax" type="number" min="0" step="500" placeholder="最大" />
+      </div>
+      <div class="chips wrap" data-filter="atkBands"></div>
+    </section>
+    <section>
+      <h2>卡片特徵（自己是什麼團）</h2>
+      <div class="chips wrap" data-filter="ownBands"></div>
+    </section>
+    <section>
+      <h2>名場面觸發種類</h2>
+      <p class="hint">角色看 CX コンボ對應的高潮；高潮卡看自己的觸發</p>
+      <div class="chips wrap" data-filter="triggers"></div>
+    </section>
+    <section>
+      <h2>CX コンボ</h2>
+      <div class="chips" data-filter="cxCombo"></div>
+    </section>
+    <section>
+      <h2>檢索 / 回收來源</h2>
+      <p class="hint">頂牌檢索含「看上面幾張」和「公開上面幾張再入手」</p>
+      <div class="chips wrap" data-filter="searchFrom"></div>
+    </section>
+    <section>
+      <h2>檢索時機</h2>
+      <p class="hint">進場＝從手牌出場；離場＝從舞台進等待室；對手倒置＝倒掉戰鬥對象時檢索／回收</p>
+      <div class="chips wrap" data-filter="searchWhen"></div>
+    </section>
+    <section>
+      <h2>頂牌張數</h2>
+      <p class="hint">四找＝看上 4 抽 1，可跟進場／離場疊加</p>
+      <div class="chips wrap" data-filter="lookN"></div>
+    </section>
+    <section>
+      <h2>檢索對象綁定</h2>
+      <p class="hint">效果能抓什麼。篩音樂／團／周年時，預設也會帶上「不限標籤」的卡</p>
+      <div class="chips wrap" data-filter="searchTargets"></div>
+    </section>
+    <section>
+      <h2>加攻看哪個標籤</h2>
+      <div class="chips wrap" data-filter="powerKinds"></div>
+    </section>
+    <label class="toggle">
+      <input id="includeUnbound" type="checkbox" checked />
+      不限標籤的效果也列入（任何團都能用）
+    </label>
+    <section>
+      <h2>助太刀</h2>
+      <div class="chips wrap" data-filter="backup"></div>
+      <div class="chips wrap" data-filter="backupExtra"></div>
+    </section>
+    <section>
+      <h2>集中</h2>
+      <div class="chips wrap" data-filter="brainstorm"></div>
+    </section>
+    <section>
+      <h2>其他機制</h2>
+      <p class="hint">對手倒置＝このカードのバトル相手が【リバース】した時，不限有沒有檢索</p>
+      <div class="chips wrap" data-filter="mechanics"></div>
+    </section>
+
+    <button id="reset" type="button">清除篩選</button>
+  </aside>
+
+  <main>
+    <div class="toolbar">
+      <div id="count">載入中…</div>
+      <div class="sorts">
+        <label>排序
+          <select id="sort1"></select>
+          <select id="dir1"></select>
+        </label>
+        <label>然後
+          <select id="sort2"></select>
+          <select id="dir2"></select>
+        </label>
+        <label>再
+          <select id="sort3"></select>
+          <select id="dir3"></select>
+        </label>
+      </div>
+    </div>
+    <div id="results" class="results"></div>
+  </main>
+
+  <div id="drawer" class="drawer hidden" aria-hidden="true">
+    <div class="drawer-panel">
+      <header class="drawer-head">
+        <button class="close" id="closeDrawer" type="button">關閉</button>
+      </header>
+      <div id="detail"></div>
+    </div>
+  </div>
+
+  <script src="cards-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
